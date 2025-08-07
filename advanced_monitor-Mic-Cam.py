@@ -64,7 +64,8 @@ lstm_model = build_lstm_model()
 # Helper functions
 def get_process_info(device):
     try:
-        result = subprocess.run(f"lsof {device}", shell=True, capture_output=True, text=True)
+        command = ["lsof", device]
+        result = subprocess.run(command, capture_output=True, text=True, check=False)
         lines = result.stdout.splitlines()
         if len(lines) > 1:
             pid = int(lines[1].split()[1])
