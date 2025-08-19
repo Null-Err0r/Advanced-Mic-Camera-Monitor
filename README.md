@@ -182,4 +182,12 @@ Contributions are welcome! Please fork the repository, create a new branch, and 
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
+
+## 📄 License | لایسنس
+
+This project is licensed under the [MIT License](LICENSE).  
+این پروژه تحت لایسنس MIT منتشر شده است.
+
+
+
 ![Repo Badge](https://visitor-badge.laobi.icu/badge?page_id=null-err0r.Advanced-Mic-Camera-Monitor) 
