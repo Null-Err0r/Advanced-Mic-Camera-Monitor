@@ -1,11 +1,5 @@
 # Advanced-Mic-Camera-Monitor
-<div align="center">
-  <br><br>
-  <a href="https://t.me/NullError_ir" target="_blank">
-    <img src="https://img.shields.io/badge/Telegram-black?style=for-the-badge&logo=Telegram" alt="Telegram" />
-  </a>
-</div>
-<br>
+
 مانیتور پیشرفته دوربین و میکروفن
 
  یک برنامه مبتنی بر پایتون است که برای نظارت و مدیریت دسترسی به دستگاه‌های سیستمی مانند وب‌کم و میکروفون طراحی شده است. این برنامه دسترسی‌های غیرمجاز را شناسایی می‌کند، فعالیت‌ها را ثبت می‌کند و رابط کاربری برای اجازه یا رد درخواست‌های دسترسی ارائه می‌دهد. این برنامه از یادگیری ماشین (مدل LSTM) برای شناسایی رفتارهای غیرعادی استفاده می‌کند، ترافیک شبکه را برای فعالیت‌های مشکوک نظارت می‌کند و یک آیکون در پنل بار سیستم برای دسترسی آسان به لاگ‌ها و تاریخچه فرآیندها ارائه می‌دهد.
@@ -16,17 +10,17 @@
 
 دسترسی به دستگاه‌های ویدئویی (/dev/video*) و صوتی (/dev/snd/pcm*) را ردیابی می‌کند.
 
-تشخیص ناهنجاری:
+تشخیص ناهنجاری هوش مصنوعی با قابلیت یادگیری:
 
-از مدل LSTM برای شناسایی رفتار غیرعادی فرآیندها بر اساس استفاده از CPU، حافظه و فرکانس دسترسی استفاده می‌کند.
+از شبکه عصبی LSTM برای شناسایی رفتار غیرعادی فرآیندها استفاده می‌کند. این مدل روی دیسک ذخیره شده و با گذشت زمان رفتار طبیعی سیستم را یاد می‌گیرد.
 
 نظارت بر شبکه: 
 
-فعالیت‌های مشکوک شبکه را در پورت‌های مشخص‌شده با استفاده از Scapy شناسایی می‌کند.
+فعالیت‌های مشکوک شبکه را در پورت‌های مشخص‌شده با استفاده از Scapy روی تمام رابط‌های شبکه شناسایی می‌کند.
 
-رابط کاربری:
+رابط کاربری پایدار:
 
-پاپ‌آپ مبتنی بر Tkinter برای درخواست‌های دسترسی و آیکون در پنل بار سیستم (PyQt6) برای مشاهده لاگ‌ها و تاریخچه فرآیندها ارائه می‌دهد.
+رابط کاربری و پاپ‌آپ‌ها به صورت کاملاً یکپارچه و امن (Thread-safe) با PyQt6 .
 
 لاگ‌گیری:
 
@@ -46,7 +40,7 @@
 
 نصب پکیج‌های پایتون مورد نیاز:
 
-pip install pyinotify psutil tensorflow numpy scapy tkinter pyqt6
+pip install pyinotify psutil tensorflow numpy scapy pyqt6
 
 
 
@@ -57,7 +51,7 @@ pip install pyinotify psutil tensorflow numpy scapy tkinter pyqt6
 
 lsof (sudo apt install lsof )
 
-رابط شبکه (مثل wlan0) برای نظارت بر شبکه
+رابط شبکه برای نظارت بر شبکه (به صورت خودکار شناسایی می‌شود)
 
 
 دسترسی به دستگاه‌های /dev/video* و /dev/snd/*
@@ -84,7 +78,7 @@ sudo apt install lsof
 
 اسکریپت را با دسترسی روت اجرا کنید (برای دسترسی به دستگاه‌ها و نظارت بر شبکه لازم است)
 
-:sudo python3 advanced_monitor-Mic-Cam.py
+sudo python3 advanced_monitor-Mic-Cam.py
 
 
 
@@ -107,7 +101,7 @@ sudo apt install lsof
 
 رابط شبکه:
 
-متغیر NETWORK_INTERFACE در اسکریپت (پیش‌فرض: wlan0) را با سیستم خود به‌روزرسانی کنید.
+این ابزار به صورت هوشمند و پویا تمام رابط‌های فعال شبکه در سیستم شما (مانند eth0 یا wlan0) را نظارت می‌کند و دیگر نیازی به تنظیم دستی نام شبکه نیست.
 
 پورت‌های مشکوک:
 
@@ -131,9 +125,9 @@ The Advanced Mic/Camera Monitor is a Python-based application designed to monito
 Features
 
 Device Monitoring: Tracks access to video (/dev/video*) and audio (/dev/snd/pcm*) devices.
-Anomaly Detection: Uses an LSTM model to identify unusual process behavior based on CPU, memory usage, and access frequency.
-Network Monitoring: Detects suspicious network activity on specified ports using Scapy.
-User Interface: Provides a Tkinter-based popup for access requests and a system tray icon (PyQt6) for viewing logs and process history.
+Anomaly Detection with Persistence: Uses an LSTM model to identify unusual process behavior. The model saves to disk and learns your system's access patterns over time.
+Network Monitoring: Detects suspicious network activity on specified ports using Scapy dynamically across all active interfaces.
+User Interface: Entirely unified using PyQt6 for popups, access requests, logs, and system tray icon to ensure robust, thread-safe performance.
 Logging: Stores access logs in JSON format and maintains a SQLite database for persistent permissions.
 Process Management: Allows users to allow, deny, or permanently allow access, with the option to terminate unauthorized processes.
 
@@ -142,12 +136,12 @@ Prerequisites
 Operating System: Linux (Tested on Ubuntu 20.04+ / Debian)
 Python: Version 3.8 or higher
 Dependencies:
-Install required Python packages:pip install pyinotify psutil tensorflow numpy scapy tkinter pyqt6
+Install required Python packages:pip install pyinotify psutil tensorflow numpy scapy pyqt6
 
 
 Additional system requirements:
 lsof command-line tool (sudo apt install lsof )
-Network interface (e.g., wlan0) for network monitoring
+Network interface for network monitoring (auto-detected by script)
 Access to /dev/video* and /dev/snd/* devices
 
 
@@ -178,7 +172,7 @@ Logs are stored in /var/log/monitor_pro.log, and permissions are saved in monito
 Notes
 
 Root Privileges: The script requires sudo to access devices and monitor network traffic.
-Network Interface: Update the NETWORK_INTERFACE variable in the script (default: wlan0) to match your system.
+Network Interface: The script dynamically sniffs all active network interfaces to detect suspicious activity.
 Suspicious Ports: Modify the SUSPICIOUS_PORTS list to include ports you consider suspicious.
 Performance: The LSTM model may require significant CPU resources during training. Adjust HISTORY_SIZE for performance tuning.
 Log File: Ensure the user has write permissions for /var/log/monitor_pro.log.
@@ -197,3 +191,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 
 ![Repo Badge](https://visitor-badge.laobi.icu/badge?page_id=null-err0r.Advanced-Mic-Camera-Monitor) 
+
