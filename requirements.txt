@@ -1,6 +1,0 @@
-pyinotify
-psutil
-tensorflow
-numpy
-scapy
-pyqt6
